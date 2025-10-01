@@ -1,1 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+
+.error-snackbar {
+  background-color: #f44336 !important;
+  color: white !important;
+}

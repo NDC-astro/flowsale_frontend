@@ -95,11 +95,16 @@
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "@angular/material/prebuilt-themes/indigo-pink.css"
+
             ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "48ed3f31-7910-42b4-9fcd-8c969a7adf0c"
   }
 }
