@@ -1,0 +1,22 @@
+<h2 mat-dialog-title>Modifier l'utilisateur</h2>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="dialog-form">
+      <mat-form-field>
+        <input matInput placeholder="Nom d'utilisateur" formControlName="username">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Email" formControlName="email">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Rôle" formControlName="role">
+          <mat-option value="admin">Administrateur</mat-option>
+          <mat-option value="commercial">Commercial</mat-option>
+          <mat-option value="gestionnaire">Gestionnaire</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="buttons">
+        <button mat-button type="button" (click)="onCancel()">Annuler</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+          Mettre à jour
+        </button>
+      </div>
+    </form>
