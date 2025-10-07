@@ -1,0 +1,52 @@
+<div class="container">
+      <div class="header">
+        <h2>Liste des Fournisseurs</h2>
+        <button mat-raised-button color="primary" (click)="openCreateDialog()">
+          <mat-icon>add</mat-icon> Nouveau Fournisseur
+        </button>
+      </div>
+
+      <!-- Barre de recherche -->
+      <div class="filters">
+        <mat-form-field>
+          <input matInput placeholder="Rechercher..." [(ngModel)]="searchTerm" (input)="applyFilters()">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Produit fourni" [(ngModel)]="searchProduit" (input)="applyFilters()">
+        </mat-form-field>
+      </div>
+
+      <!-- Tableau des fournisseurs -->
+      <mat-table [dataSource]="filteredFournisseurs" class="mat-elevation-z8">
+        <ng-container matColumnDef="raison_sociale">
+          <mat-header-cell *matHeaderCellDef> Raison Sociale </mat-header-cell>
+          <mat-cell *matCellDef="let fournisseur"> {{fournisseur.raison_sociale}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+          <mat-cell *matCellDef="let fournisseur"> {{fournisseur.email || '—'}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="telephone">
+          <mat-header-cell *matHeaderCellDef> Téléphone </mat-header-cell>
+          <mat-cell *matCellDef="let fournisseur"> {{fournisseur.telephone || '—'}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="produit_fourni">
+          <mat-header-cell *matHeaderCellDef> Produit Fourni </mat-header-cell>
+          <mat-cell *matCellDef="let fournisseur"> {{fournisseur.produit_fourni || '—'}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let fournisseur">
+            <button mat-icon-button color="primary" (click)="openEditDialog(fournisseur)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteFournisseur(fournisseur.id!)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>
