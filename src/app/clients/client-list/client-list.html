@@ -1,0 +1,61 @@
+    <div class="container">
+      <div class="header">
+        <h2>Liste des Clients</h2>
+        <button mat-raised-button color="primary" (click)="openCreateDialog()">
+          <mat-icon>add</mat-icon> Nouveau Client
+        </button>
+      </div>
+
+      <!-- Barre de recherche et filtres -->
+      <div class="filters">
+        <mat-form-field>
+          <input matInput placeholder="Rechercher..." [(ngModel)]="searchTerm" (input)="applyFilters()">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Statut" [(value)]="selectedStatut" (selectionChange)="applyFilters()">
+            <mat-option value="">Tous</mat-option>
+            <mat-option value="prospect">Prospect</mat-option>
+            <mat-option value="client">Client</mat-option>
+            <mat-option value="inactif">Inactif</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Tableau des clients -->
+      <mat-table [dataSource]="filteredClients" class="mat-elevation-z8">
+        <ng-container matColumnDef="raison_sociale">
+          <mat-header-cell *matHeaderCellDef> Raison Sociale </mat-header-cell>
+          <mat-cell *matCellDef="let client"> {{client.raison_sociale}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="email">
+          <mat-header-cell *matHeaderCellDef> Email </mat-header-cell>
+          <mat-cell *matCellDef="let client"> {{client.email || '—'}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="telephone">
+          <mat-header-cell *matHeaderCellDef> Téléphone </mat-header-cell>
+          <mat-cell *matCellDef="let client"> {{client.telephone || '—'}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="statut">
+          <mat-header-cell *matHeaderCellDef> Statut </mat-header-cell>
+          <mat-cell *matCellDef="let client">
+            <mat-chip [color]="getStatutColor(client.statut)" selected>
+              {{ getStatutLabel(client.statut) }}
+            </mat-chip>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let client">
+            <button mat-icon-button color="primary" (click)="openEditDialog(client)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteClient(client.id!)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>

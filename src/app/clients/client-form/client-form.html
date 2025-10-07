@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>{{ this.client ? 'Modifier le client' : 'Nouveau client' }}</h2>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="dialog-form">
+  <mat-form-field>
+    <input matInput placeholder="Raison sociale *" formControlName="raison_sociale">
+    @if (form.get('raison_sociale')?.errors?.['required']) {
+      <mat-error>La raison sociale est obligatoire.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Adresse *" formControlName="adresse">
+    @if (form.get('adresse')?.errors?.['required']) {
+      <mat-error>L'adresse est obligatoire.</mat-error>
+    }
+  </mat-form-field>
+
+  <div class="row">
+    <mat-form-field>
+      <input matInput placeholder="Code postal *" formControlName="code_postal">
+      @if (form.get('code_postal')?.errors?.['required']) {
+        <mat-error>Le code postal est obligatoire.</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Ville *" formControlName="ville">
+      @if (form.get('ville')?.errors?.['required']) {
+        <mat-error>La ville est obligatoire.</mat-error>
+      }
+    </mat-form-field>
+  </div>
+
+  <mat-form-field>
+    <input matInput placeholder="Pays" formControlName="pays">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Téléphone" formControlName="telephone">
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Email" formControlName="email">
+    @if (form.get('email')?.errors?.['email']) {
+      <mat-error>Format d'email invalide.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="Site web" formControlName="site_web">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-select placeholder="Statut *" formControlName="statut">
+      <mat-option value="prospect">Prospect</mat-option>
+      <mat-option value="client">Client</mat-option>
+      <mat-option value="inactif">Inactif</mat-option>
+    </mat-select>
+    @if (form.get('statut')?.errors?.['required']) {
+      <mat-error>Le statut est obligatoire.</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Notes" formControlName="notes" rows="3"></textarea>
+  </mat-form-field>
+
+  <div class="buttons">
+    <button mat-button type="button" (click)="onCancel()">Annuler</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      {{ this.client ? 'Mettre à jour' : 'Créer' }}
+    </button>
+  </div>
+</form>
