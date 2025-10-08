@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Gestion du stock : {{ produit.nom }}</h2>
+<p>Stock actuel : <strong>{{ produit.quantite_stock }}</strong></p>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="dialog-form">
+  <mat-form-field>
+    <mat-label>Type de mouvement</mat-label>
+    <mat-select formControlName="type_mouvement">
+      <mat-option value="entree">Entrée de stock</mat-option>
+      <mat-option value="sortie">Sortie de stock</mat-option>
+      <mat-option value="ajustement">Ajustement manuel</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput type="number" placeholder="Quantité *" formControlName="quantite" min="1">
+    <mat-error *ngIf="form.get('quantite')?.hasError('required')">Quantité requise</mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <textarea matInput placeholder="Commentaire" formControlName="commentaire" rows="2"></textarea>
+  </mat-form-field>
+
+  <div class="buttons">
+    <button mat-button type="button" (click)="onCancel()">Annuler</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      Valider
+    </button>
+  </div>
+</form>

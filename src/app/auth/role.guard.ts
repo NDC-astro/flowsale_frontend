@@ -23,7 +23,7 @@ export class RoleGuard implements CanActivate {
       return true; // Accès autorisé
     } else {
       // Afficher un message d’erreur
-      this.snackBar.open('Accès refusé : rôle "${expectedRole}" requis.', 'Fermer', {
+      this.snackBar.open('Accès refusé : rôle ${expectedRole} requis.', 'Fermer', {
         duration: 5000,
         panelClass: ['error-snackbar']
       });

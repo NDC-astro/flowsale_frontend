@@ -1,0 +1,78 @@
+<h2 mat-dialog-title>{{ produit ? 'Modifier le produit' : 'Nouveau produit' }}</h2>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="dialog-form">
+  <mat-form-field appearance="outline">
+    <mat-label>Code produit</mat-label>
+    <input matInput formControlName="code" required>
+    @if (form.get('code')?.hasError('required')) {
+      <mat-error>Code requis</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Nom</mat-label>
+    <input matInput formControlName="nom" required>
+    @if (form.get('nom')?.hasError('required')) {
+      <mat-error>Nom requis</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description" rows="2"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type" required>
+      <mat-option value="produit">Produit physique</mat-option>
+      <mat-option value="service">Service</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Catégorie</mat-label>
+    <mat-select formControlName="categorie">
+      <mat-option [value]="null">Aucune</mat-option>
+      @for (cat of categories; track cat.id) {
+        <mat-option [value]="cat.id">{{ cat.nom }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-label>Prix HT (€)</mat-label>
+      <input matInput type="number" formControlName="prix_unitaire_ht" step="0.01" required>
+      @if (form.get('prix_unitaire_ht')?.hasError('required')) {
+        <mat-error>Prix requis</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>TVA (%)</mat-label>
+      <input matInput type="number" formControlName="taux_tva" step="0.01">
+    </mat-form-field>
+  </div>
+
+  @if (form.get('type')?.value === 'produit') {
+    <div class="row">
+      <mat-form-field appearance="outline">
+        <mat-label>Quantité en stock</mat-label>
+        <input matInput type="number" formControlName="quantite_stock" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Seuil d'alerte</mat-label>
+        <input matInput type="number" formControlName="seuil_alerte" required>
+      </mat-form-field>
+    </div>
+  }
+
+  <mat-slide-toggle formControlName="actif">Actif</mat-slide-toggle>
+
+  <div class="buttons">
+    <button mat-button type="button" (click)="onCancel()">Annuler</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      {{ produit ? 'Mettre à jour' : 'Créer' }}
+    </button>
+  </div>
+</form>

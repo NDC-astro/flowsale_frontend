@@ -14,6 +14,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { FormsModule } from '@angular/forms';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -29,6 +31,9 @@ import { ClientList } from './clients/client-list/client-list';
 import { ClientForm } from './clients/client-form/client-form';
 import { FournisseurList } from './fournisseurs/fournisseur-list/fournisseur-list';
 import { FournisseurForm } from './fournisseurs/fournisseur-form/fournisseur-form';
+import { ProductForm } from './products/product-form/product-form';
+import { ProductList } from './products/product-list/product-list';
+import { StockMovementDialog } from './products/stock-movement-dialog/stock-movement-dialog';
 
 @NgModule({
   declarations: [
@@ -41,7 +46,10 @@ import { FournisseurForm } from './fournisseurs/fournisseur-form/fournisseur-for
     ClientList,
     ClientForm,
     FournisseurList,
-    FournisseurForm
+    FournisseurForm,
+    ProductForm,
+    ProductList,
+    StockMovementDialog
   ],
   imports: [
     BrowserModule,
@@ -57,6 +65,8 @@ import { FournisseurForm } from './fournisseurs/fournisseur-form/fournisseur-for
     MatTableModule,
     MatChipsModule,
     MatDialogModule,
+    MatSlideToggleModule,
+    MatTooltipModule,
     FormsModule,
     // BrowserAnimationsModule // Required for Angular Material animations
 

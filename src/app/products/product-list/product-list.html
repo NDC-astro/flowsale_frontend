@@ -1,0 +1,59 @@
+<div class="container">
+      <div class="header">
+        <h2>Catalogue des Produits</h2>
+        <button mat-raised-button color="primary" (click)="openCreateDialog()">
+          <mat-icon>add</mat-icon> Nouveau Produit
+        </button>
+      </div>
+
+      <mat-table [dataSource]="products" class="mat-elevation-z8">
+        <ng-container matColumnDef="code">
+          <mat-header-cell *matHeaderCellDef> Code </mat-header-cell>
+          <mat-cell *matCellDef="let p"> {{p.code}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="nom">
+          <mat-header-cell *matHeaderCellDef> Nom </mat-header-cell>
+          <mat-cell *matCellDef="let p"> {{p.nom}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="type">
+          <mat-header-cell *matHeaderCellDef> Type </mat-header-cell>
+          <mat-cell *matCellDef="let p">
+            <mat-chip [color]="p.type === 'service' ? 'accent' : 'primary'">
+              {{ p.type === 'produit' ? 'Produit' : 'Service' }}
+            </mat-chip>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="prix_ttc">
+          <mat-header-cell *matHeaderCellDef> Prix TTC </mat-header-cell>
+          <mat-cell *matCellDef="let p"> {{ p.prix_ttc | number:'1.2-2' }} € </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="stock">
+          <mat-header-cell *matHeaderCellDef> Stock </mat-header-cell>
+          <mat-cell *matCellDef="let p">
+            <span [class.low-stock]="p.quantite_stock <= p.seuil_alerte">
+              {{ p.quantite_stock }}
+            </span>
+            <mat-icon *ngIf="p.quantite_stock <= p.seuil_alerte" color="warn" matTooltip="Seuil d'alerte atteint">
+              warning
+            </mat-icon>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+          <mat-cell *matCellDef="let p">
+            <button mat-icon-button color="primary" (click)="openEditDialog(p)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="accent" (click)="openStockDialog(p)" *ngIf="p.type === 'produit'">
+              <mat-icon>inventory_2</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteProduct(p.id!)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      </mat-table>
+    </div>

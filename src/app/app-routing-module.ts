@@ -9,6 +9,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { UserListComponent } from './users/user-list/user-list.component';
 import { ClientList } from './clients/client-list/client-list';
 import { FournisseurList } from './fournisseurs/fournisseur-list/fournisseur-list';
+import { ProductList } from './products/product-list/product-list';
 
 
 const routes: Routes = [
@@ -26,6 +27,10 @@ const routes: Routes = [
     data : {expectedRole: 'commercial'}
   },
   { path: 'fournisseurs', component: FournisseurList,
+    canActivate: [AuthGuard, RoleGuard],
+    data: {expectedRole: 'gestionnaire'}
+  },
+  { path: 'produits', component: ProductList,
     canActivate: [AuthGuard, RoleGuard],
     data: {expectedRole: 'gestionnaire'}
   },

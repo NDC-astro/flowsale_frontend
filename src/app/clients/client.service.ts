@@ -3,11 +3,14 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Client } from '../models/client.model';
 
+// Import the constant from the config file
+import { api_Url } from '../config/api.config';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ClientService {
-  private apiUrl = 'http://localhost:8000/api/clients/';
+  private apiUrl = '${api_Url}/clients/';
 
   constructor(private http: HttpClient) {}
 

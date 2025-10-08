@@ -7,7 +7,7 @@ import { User } from '../models/user.model'; // Réutilisez l’interface User
   providedIn: 'root'
 })
 export class ProfileService {
-  private apiUrl = 'http://localhost:8000/api/users';
+  private apiUrl = '${api_Url}/users';
 
   constructor(private http: HttpClient) {}
 
